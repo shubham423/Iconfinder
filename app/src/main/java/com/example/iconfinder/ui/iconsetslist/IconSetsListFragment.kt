@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.iconfinder.R
 import com.example.iconfinder.databinding.FragmentIconSetsListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class IconSetsListFragment : Fragment() {
     private lateinit var binding:FragmentIconSetsListBinding
     override fun onCreateView(
