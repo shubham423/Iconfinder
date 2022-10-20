@@ -57,12 +57,16 @@ class HomeFragment : Fragment() {
         viewModel.iconCategorySetResponse.observe(viewLifecycleOwner){
             when(it){
                 is Resource.Success -> {
+                    binding.progressBar.visibility=View.GONE
                     homeAdapter= HomeAdapter()
                     binding.rvCategoryList.adapter=homeAdapter
                     homeAdapter.submitList(it.data?.categories)
                 }
                 is Resource.Error -> {
-
+                    binding.progressBar.visibility=View.GONE
+                }
+                is Resource.Loading -> {
+                    binding.progressBar.visibility=View.VISIBLE
                 }
                 else -> {
 

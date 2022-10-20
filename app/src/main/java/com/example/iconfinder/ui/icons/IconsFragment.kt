@@ -42,15 +42,16 @@ class IconsFragment : Fragment() {
         viewModel.iconsResponse.observe(viewLifecycleOwner){
             when(it){
                 is Resource.Success -> {
+                    binding.progressBar.visibility=View.GONE
                     iconAdapter= IconsAdapter()
                     binding.rvIcons.adapter=iconAdapter
                     iconAdapter.submitList(it.data?.icons)
                 }
                 is Resource.Error -> {
-
+                    binding.progressBar.visibility=View.GONE
                 }
-                else -> {
-
+                is Resource.Loading -> {
+                    binding.progressBar.visibility=View.VISIBLE
                 }
             }
         }
