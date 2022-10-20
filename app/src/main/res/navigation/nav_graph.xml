@@ -8,11 +8,31 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.iconfinder.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_iconsFragment"
+            app:destination="@id/iconsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_iconSetsListFragment"
+            app:destination="@id/iconSetsListFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/categorySetsListFragment"
-        android:name="com.example.iconfinder.ui.iconcategorysetsdetails.CategorySetsListFragment"
-        android:label="fragment_category_sets_list"
-        tools:layout="@layout/fragment_category_sets_list" />
+        android:id="@+id/iconSetsListFragment"
+        android:name="com.example.iconfinder.ui.iconsetslist.IconSetsListFragment"
+        android:label="Icon sets"
+        tools:layout="@layout/fragment_icon_sets_list">
+        <action
+            android:id="@+id/action_iconSetsListFragment_to_iconsFragment"
+            app:destination="@id/iconsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/iconsFragment"
+        android:name="com.example.iconfinder.ui.icons.IconsFragment"
+        android:label="Icons"
+        tools:layout="@layout/fragment_icons">
+        <argument
+            android:name="query"
+            app:argType="string" />
+    </fragment>
 </navigation>
