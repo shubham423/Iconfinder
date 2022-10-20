@@ -14,11 +14,11 @@
 
         <ImageView
             android:id="@+id/icon_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,37 +30,35 @@
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/icon_img"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/pricing_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/free_icon"
             app:layout_constraintStart_toEndOf="@+id/icon_img"
             app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
         <ImageView
             android:id="@+id/download_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="13dp"
             android:src="@drawable/download_icon"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/name_tv"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/pricing_img"
+            app:layout_constraintStart_toEndOf="@+id/pricing_img"
+            app:layout_constraintTop_toTopOf="@+id/pricing_img" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
