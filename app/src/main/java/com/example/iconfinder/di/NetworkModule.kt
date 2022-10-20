@@ -3,7 +3,6 @@ package com.example.iconfinder.di
 import com.example.iconfinder.data.api.IconFinderApi
 import com.example.iconfinder.utils.Constants.API_KEY
 import com.example.iconfinder.utils.Constants.BASE_URL
-import com.example.iconfinder.utils.Constants.CLIENT_ID
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -3,7 +3,7 @@ package com.example.iconfinder.models
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchIconResponse(
+data class IconsResponse(
     @SerializedName("icons")
     val icons: List<Icon>,
     @SerializedName("total_count")

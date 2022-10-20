@@ -1,4 +1,4 @@
-package com.example.iconfinder.viewmodels
+package com.example.iconfinder.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class IconFinderViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val iconFinderRepository: IconFinderRepository
 ) : ViewModel() {
 
