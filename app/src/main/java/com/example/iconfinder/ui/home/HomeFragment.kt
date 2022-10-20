@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.iconfinder.MainActivity
 import com.example.iconfinder.R
 import com.example.iconfinder.databinding.FragmentHomeBinding
+import com.example.iconfinder.ui.iconsetslist.IconSetsViewModel
 import com.example.iconfinder.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
+    private val iconSetViewModel: IconSetsViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +58,11 @@ class HomeFragment : Fragment() {
             when(it){
                 is Resource.Success -> {
                     binding.progressBar.visibility=View.GONE
-                    homeAdapter= HomeAdapter()
+                    homeAdapter= HomeAdapter(){identifier ->
+                        iconSetViewModel.setIdentifier(identifier)
+                        val direction=HomeFragmentDirections.actionHomeFragmentToIconSetsListFragment(identifier)
+                        findNavController().navigate(direction)
+                    }
                     binding.rvCategoryList.adapter=homeAdapter
                     homeAdapter.submitList(it.data?.categories)
                 }
@@ -65,9 +71,6 @@ class HomeFragment : Fragment() {
                 }
                 is Resource.Loading -> {
                     binding.progressBar.visibility=View.VISIBLE
-                }
-                else -> {
-
                 }
             }
         }

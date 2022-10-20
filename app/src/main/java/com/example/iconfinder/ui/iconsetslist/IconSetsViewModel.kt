@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.iconfinder.data.IconFinderRepository
-import com.example.iconfinder.models.CategorySetResponse
 import com.example.iconfinder.models.IconSetResponse
 import com.example.iconfinder.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,12 +20,15 @@ class IconSetsViewModel @Inject constructor(
     private val _iconSetsResponse = MutableLiveData<Resource<IconSetResponse?>>()
     val iconSetsResponse: LiveData<Resource<IconSetResponse?>> = _iconSetsResponse
 
-    fun getIconCategorySets(identifier:String) {
+    private val _identifier = MutableLiveData<String>()
+    val identifier: LiveData<String> = _identifier
+
+    fun getIconCategorySets(identifier: String) {
         _iconSetsResponse.postValue(Resource.Loading())
         viewModelScope.launch {
             try {
-                val response =iconFinderRepository.getIconSets(identifier)
-                if (response.isSuccessful){
+                val response = iconFinderRepository.getIconSets(identifier)
+                if (response?.isSuccessful == true){
                     _iconSetsResponse.value=Resource.Success(data = response.body())
                 }else{
                     _iconSetsResponse.value=Resource.Error(message = "some error occured")
@@ -36,5 +38,9 @@ class IconSetsViewModel @Inject constructor(
             }
 
         }
+    }
+
+    fun setIdentifier(identifier: String){
+        _identifier.value=identifier
     }
 }

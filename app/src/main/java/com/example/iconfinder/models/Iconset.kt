@@ -9,7 +9,7 @@ data class Iconset(
     @SerializedName("author")
     val author: Author,
     @SerializedName("categories")
-    val categories: List<CategoryX>,
+    val categories: List<Category>,
     @SerializedName("icons_count")
     val iconsCount: Int,
     @SerializedName("iconset_id")
@@ -23,11 +23,11 @@ data class Iconset(
     @SerializedName("name")
     val name: String,
     @SerializedName("prices")
-    val prices: List<PriceX>,
+    val prices: List<Price>,
     @SerializedName("published_at")
     val publishedAt: String,
     @SerializedName("styles")
-    val styles: List<StyleX>,
+    val styles: List<Style>,
     @SerializedName("type")
     val type: String
 )

@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_iconSetsListFragment_to_iconsFragment"
             app:destination="@id/iconsFragment" />
+        <argument
+            android:name="identifier"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/iconsFragment"

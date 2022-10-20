@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iconfinder.databinding.CategorylistItemBinding
 import com.example.iconfinder.models.Category
 
-class HomeAdapter : ListAdapter<Category, HomeAdapter.HomeViewHolder> (
+class HomeAdapter(private val callback: (identifier:String)-> Unit) : ListAdapter<Category, HomeAdapter.HomeViewHolder> (
     object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
             return oldItem == newItem
@@ -23,6 +23,9 @@ class HomeAdapter : ListAdapter<Category, HomeAdapter.HomeViewHolder> (
     inner class HomeViewHolder(private val binding:CategorylistItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.category.text=category.name
+            binding.root.setOnClickListener {
+                callback.invoke(category.identifier)
+            }
         }
 
     }
