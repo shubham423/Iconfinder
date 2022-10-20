@@ -40,6 +40,23 @@ class IconsViewModel @Inject constructor(
         }
     }
 
+    fun getIconsFromIconSets(id:Int) {
+        _iconsResponse.postValue(Resource.Loading())
+        viewModelScope.launch {
+            try {
+                val response = iconFinderRepository.getIconFromIconSets(id)
+                if (response?.isSuccessful == true){
+                    _iconsResponse.value=Resource.Success(data = response.body())
+                }else{
+                    _iconsResponse.value=Resource.Error(message = "some error occured")
+                }
+            }catch (e:Exception){
+                Timber.d("exception occurred ${e.message}")
+            }
+
+        }
+    }
+
     fun setQuery(query: String){
         _query.value=query
     }

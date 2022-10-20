@@ -13,38 +13,44 @@ import com.example.iconfinder.databinding.ItemIconsetsBinding
 import com.example.iconfinder.models.Icon
 import com.example.iconfinder.models.Iconset
 
-class IconSetsAdapter : ListAdapter<Iconset, IconSetsAdapter.HomeViewHolder> (
-    object : DiffUtil.ItemCallback<Iconset>() {
-        override fun areItemsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
-            return oldItem == newItem
-        }
+class IconSetsAdapter(private val callback: (iconSetId: Int) -> Unit) :
+    ListAdapter<Iconset, IconSetsAdapter.HomeViewHolder>(
+        object : DiffUtil.ItemCallback<Iconset>() {
+            override fun areItemsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
+                return oldItem == newItem
+            }
 
-        override fun areContentsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
-            return oldItem.toString() == newItem.toString()
+            override fun areContentsTheSame(oldItem: Iconset, newItem: Iconset): Boolean {
+                return oldItem.toString() == newItem.toString()
+            }
         }
-    }
-)
-{
-    inner class HomeViewHolder(private val binding:ItemIconsetsBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(iconSet:Iconset, position: Int) {
-           if (iconSet.isPremium){
-               binding.pricingImg.setImageResource(R.drawable.premium_icon)
-           }else{
-               binding.pricingImg.setImageResource(R.drawable.free_icon)
-           }
-            binding.authorNameTv.text="Author name: ${iconSet.author.name}"
-            binding.countTv.text="Icons count: ${iconSet.iconsCount}"
+    ) {
+    inner class HomeViewHolder(private val binding: ItemIconsetsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(iconSet: Iconset, position: Int) {
+            if (iconSet.isPremium) {
+                binding.pricingImg.setImageResource(R.drawable.premium_icon)
+            } else {
+                binding.pricingImg.setImageResource(R.drawable.free_icon)
+            }
+            binding.authorNameTv.text = "Author name: ${iconSet.author.name}"
+            binding.countTv.text = "Icons count: ${iconSet.iconsCount}"
+
+            binding.root.setOnClickListener {
+                callback.invoke(iconSet.iconsetId)
+            }
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val binding=ItemIconsetsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding =
+            ItemIconsetsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(getItem(position),position)
+        holder.bind(getItem(position), position)
     }
 
 }

@@ -9,4 +9,5 @@ interface IconFinderRepository  {
     suspend fun getIconCategorySets():Response<CategorySetResponse>
     suspend fun searchIcons(query: String):Response<IconsResponse>
     suspend fun getIconSets(identifier: String):Response<IconSetResponse>
+    suspend fun getIconFromIconSets(id: Int):Response<IconsResponse>
 }

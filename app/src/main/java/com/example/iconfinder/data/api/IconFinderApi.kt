@@ -23,6 +23,11 @@ interface IconFinderApi {
     suspend fun getIconSets(
         @Path("category_identifier") identifier: String,
         @Query("count") count: Int=25,
-        @Query("after") afterIdentifier: String?,
     ): Response<IconSetResponse>
+
+    @GET("iconsets/{iconset_id}/icons")
+    suspend fun getIconFromIconSet(
+        @Path("iconset_id") id: Int,
+        @Query("count") count: Int=25,
+    ): Response<IconsResponse>
 }

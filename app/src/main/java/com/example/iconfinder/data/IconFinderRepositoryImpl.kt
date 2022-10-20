@@ -17,6 +17,10 @@ class IconFinderRepositoryImpl @Inject constructor(private val api: IconFinderAp
     }
 
     override suspend fun getIconSets(identifier: String): Response<IconSetResponse> {
-        return api.getIconSets(identifier, afterIdentifier = null)
+        return api.getIconSets(identifier)
+    }
+
+    override suspend fun getIconFromIconSets(id: Int): Response<IconsResponse> {
+        return api.getIconFromIconSet(id)
     }
 }

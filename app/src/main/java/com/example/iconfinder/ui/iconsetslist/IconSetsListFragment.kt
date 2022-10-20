@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.iconfinder.databinding.FragmentIconSetsListBinding
 import com.example.iconfinder.ui.icons.IconsViewModel
@@ -17,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class IconSetsListFragment : Fragment() {
     private lateinit var binding:FragmentIconSetsListBinding
     private val vieModel:IconSetsViewModel by viewModels()
-    private val iconsViewModel:IconsViewModel by viewModels()
     private lateinit var iconSetsAdapter: IconSetsAdapter
     private val args:IconSetsListFragmentArgs by navArgs()
 
@@ -41,7 +41,10 @@ class IconSetsListFragment : Fragment() {
             when(it){
                 is Resource.Success -> {
                     binding.progressBar.visibility=View.GONE
-                    iconSetsAdapter= IconSetsAdapter()
+                    iconSetsAdapter= IconSetsAdapter(){iconSetId->
+                        val direction=IconSetsListFragmentDirections.actionIconSetsListFragmentToIconsFragment(iconSetId)
+                        findNavController().navigate(direction)
+                    }
                     binding.rvIconSets.adapter=iconSetsAdapter
                     iconSetsAdapter.submitList(it.data?.iconsets)
                 }

@@ -66,6 +66,10 @@ class IconsFragment : Fragment() {
         if (iconSetId==-1) {
             item.expandActionView()
             searchView.setQuery("", false)
+        }else{
+            if (iconSetId!=null){
+                viewModel.getIconsFromIconSets(iconSetId!!)
+            }
         }
 
 
