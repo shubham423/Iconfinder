@@ -11,7 +11,9 @@ import retrofit2.http.Query
 interface IconFinderApi {
 
     @GET("categories")
-    suspend fun getIconSetsCategories() :Response<CategorySetResponse>
+    suspend fun getIconSetsCategories(
+        @Query("count") count: Int=25,
+    ) :Response<CategorySetResponse>
 
     @GET("icons/search")
     suspend fun searchPhotos(
