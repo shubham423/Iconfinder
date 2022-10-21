@@ -4,6 +4,8 @@
 Get api key from [Iconfinder](https://www.iconfinder.com/) and paste api key in local.properties file 
 (API_KEY=your_api_key)
 
+[APK](https://github.com/shubham423/Iconfinder/blob/master/app-debug.apk)
+
 ## Built With
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For asynchronous and more..
