@@ -14,7 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: HomeViewModel by viewModels()
     private val iconSetViewModel: IconSetsViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
@@ -23,7 +24,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentHomeBinding.inflate(layoutInflater)
+        _binding= FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -44,10 +45,6 @@ class HomeFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if(item.itemId == R.id.action_search){
-            (activity as MainActivity?)?.let {
-                it.supportActionBar?.title = ""
-                it.supportActionBar?.setDisplayShowHomeEnabled(false)
-            }
             val action = HomeFragmentDirections.actionHomeFragmentToIconsFragment(-1)
             findNavController().navigate(action)
         }
@@ -76,4 +73,9 @@ class HomeFragment : Fragment() {
             }
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

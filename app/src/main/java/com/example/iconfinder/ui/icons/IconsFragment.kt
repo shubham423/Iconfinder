@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.iconfinder.R
+import com.example.iconfinder.databinding.FragmentHomeBinding
 import com.example.iconfinder.databinding.FragmentIconsBinding
 import com.example.iconfinder.models.Icon
 import com.example.iconfinder.utils.Resource
@@ -20,7 +21,8 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class IconsFragment : Fragment() {
-    private lateinit var binding: FragmentIconsBinding
+    private var _binding: FragmentIconsBinding? = null
+    private val binding get() = _binding!!
     private val args : IconsFragmentArgs by navArgs()
     private lateinit var searchView: SearchView
     private lateinit var item: MenuItem
@@ -34,7 +36,7 @@ class IconsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentIconsBinding.inflate(layoutInflater)
+        _binding= FragmentIconsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -130,4 +132,9 @@ class IconsFragment : Fragment() {
             permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

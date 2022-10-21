@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.iconfinder.databinding.FragmentHomeBinding
 import com.example.iconfinder.databinding.FragmentResolutionBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,13 +16,14 @@ import timber.log.Timber
 @AndroidEntryPoint
 class IconResolutionBottomSheet() : BottomSheetDialogFragment() {
     private val iconsViewModel: IconsViewModel by activityViewModels()
-    private lateinit var binding: FragmentResolutionBottomSheetBinding
+    private var _binding: FragmentResolutionBottomSheetBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentResolutionBottomSheetBinding.inflate(inflater, container, false)
+        _binding = FragmentResolutionBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -36,6 +38,11 @@ class IconResolutionBottomSheet() : BottomSheetDialogFragment() {
                 dismiss()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 }
 

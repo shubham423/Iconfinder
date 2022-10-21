@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.iconfinder.databinding.FragmentHomeBinding
 import com.example.iconfinder.databinding.FragmentIconSetsListBinding
 import com.example.iconfinder.ui.icons.IconsViewModel
 import com.example.iconfinder.utils.Resource
@@ -16,7 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class IconSetsListFragment : Fragment() {
-    private lateinit var binding:FragmentIconSetsListBinding
+    private var _binding: FragmentIconSetsListBinding? = null
+    private val binding get() = _binding!!
     private val vieModel:IconSetsViewModel by viewModels()
     private lateinit var iconSetsAdapter: IconSetsAdapter
     private val args:IconSetsListFragmentArgs by navArgs()
@@ -25,7 +27,7 @@ class IconSetsListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding= FragmentIconSetsListBinding.inflate(layoutInflater)
+        _binding= FragmentIconSetsListBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -56,5 +58,10 @@ class IconSetsListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
     }
 }
