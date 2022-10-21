@@ -26,8 +26,6 @@ data class Iconset(
     val prices: List<Price>,
     @SerializedName("published_at")
     val publishedAt: String,
-    @SerializedName("styles")
-    val styles: List<Style>,
     @SerializedName("type")
     val type: String
 )

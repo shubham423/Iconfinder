@@ -22,8 +22,6 @@ data class Icon(
     val publishedAt: String,
     @SerializedName("raster_sizes")
     val rasterSizes: List<RasterSize>,
-    @SerializedName("styles")
-    val styles: List<Style>,
     @SerializedName("tags")
     val tags: List<String>,
     @SerializedName("type")

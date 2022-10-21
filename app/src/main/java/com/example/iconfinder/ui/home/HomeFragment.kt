@@ -28,6 +28,7 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity?)?.let {
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
         viewModel.getIconCategorySets()
         initObservers()
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

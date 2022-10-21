@@ -1,9 +1,9 @@
 package com.example.iconfinder.di
 
 import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.iconfinder.BuildConfig
 import com.example.iconfinder.MyApplication
 import com.example.iconfinder.data.api.IconFinderApi
-import com.example.iconfinder.utils.Constants.API_KEY
 import com.example.iconfinder.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -21,13 +21,14 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
+
     @Provides
     @Singleton
     fun authInterceptor(): Interceptor {
         return Interceptor { chain ->
             var req = chain.request()
                 req = req.newBuilder()
-                    .header("Authorization", "Bearer $API_KEY")
+                    .header("Authorization", "Bearer ${BuildConfig.API_KEY}")
                     .build()
             chain.proceed(req)
         }

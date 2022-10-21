@@ -11,9 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.iconfinder.R
-import com.example.iconfinder.databinding.FragmentHomeBinding
 import com.example.iconfinder.databinding.FragmentIconsBinding
-import com.example.iconfinder.models.Icon
 import com.example.iconfinder.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -57,10 +55,10 @@ class IconsFragment : Fragment() {
                 is Resource.Success -> {
                     binding.progressBar.visibility=View.GONE
                     iconAdapter= IconsAdapter(){icon ->
-                        Timber.d("fragment icon value ${icon?.iconId} and $icon")
+                        Timber.d("fragment icon value ${icon.iconId} and $icon")
                         viewModel.selectedIcon = icon
                             askPermission()
-                            downloadImage(icon)
+                            showDownlaodSheet()
                         }
 
                     binding.rvIcons.adapter=iconAdapter
@@ -122,7 +120,7 @@ class IconsFragment : Fragment() {
 
     }
 
-    private fun downloadImage(icon: Icon) {
+    private fun showDownlaodSheet() {
         val bottomSheet = IconResolutionBottomSheet()
         bottomSheet.show(parentFragmentManager,"bottomsheet")
     }
