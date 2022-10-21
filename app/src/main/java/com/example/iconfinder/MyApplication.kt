@@ -12,4 +12,14 @@ class MyApplication: Application(){
         super.onCreate()
         plant(Timber.DebugTree())
     }
+
+    init {
+        instance = this
+    }
+    companion object {
+        private var instance: MyApplication? = null
+        fun applicationContext(): MyApplication {
+            return instance as MyApplication
+        }
+    }
 }

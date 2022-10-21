@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private val iconSetViewModel: IconSetsViewModel by viewModels()
     private lateinit var homeAdapter: HomeAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

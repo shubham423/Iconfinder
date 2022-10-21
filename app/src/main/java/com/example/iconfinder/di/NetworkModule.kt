@@ -1,5 +1,7 @@
 package com.example.iconfinder.di
 
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.example.iconfinder.MyApplication
 import com.example.iconfinder.data.api.IconFinderApi
 import com.example.iconfinder.utils.Constants.API_KEY
 import com.example.iconfinder.utils.Constants.BASE_URL
@@ -36,6 +38,7 @@ object NetworkModule {
     @Provides
     fun provideHttpClient() : OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(ChuckerInterceptor(MyApplication.applicationContext()))
             .readTimeout(15, TimeUnit.SECONDS)
             .connectTimeout(15, TimeUnit.SECONDS)
             .build()
