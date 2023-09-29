@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.iconfinder.databinding.FragmentHomeBinding
 import com.example.iconfinder.databinding.FragmentResolutionBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +33,7 @@ class IconResolutionBottomSheet() : BottomSheetDialogFragment() {
         Timber.d("bottomsheet icon value ${icon.iconId} and $icon")
         binding.rvQualities.adapter =IconResolutionAdapter(requireContext(),icon){position->
             lifecycleScope.launchWhenCreated {
-                iconsViewModel.selectedIcon.let { iconsViewModel.download(it, position) }
+                iconsViewModel.selectedIcon.let { iconsViewModel.download(it, position,requireActivity().applicationContext) }
                 dismiss()
             }
         }

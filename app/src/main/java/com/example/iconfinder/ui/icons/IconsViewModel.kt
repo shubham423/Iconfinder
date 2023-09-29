@@ -10,7 +10,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.iconfinder.MyApplication
 import com.example.iconfinder.data.IconFinderRepository
 import com.example.iconfinder.models.Icon
 import com.example.iconfinder.models.IconsResponse
@@ -25,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class IconsViewModel @Inject constructor(
-    private val iconFinderRepository: IconFinderRepository
+    private val iconFinderRepository: IconFinderRepository,
 ) : ViewModel() {
 
     private val _query = MutableLiveData<String>()
@@ -74,11 +73,11 @@ class IconsViewModel @Inject constructor(
     }
 
     @SuppressLint("Range")
-    fun download(icon: Icon, position: Int) {
+    fun download(icon: Icon, position: Int, applicationContext: Context) {
 
         viewModelScope.launch {
             var downloadID: Long = 0
-            val downloadManager = getApplication(MyApplication.applicationContext()).getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val downloadManager = getApplication(applicationContext).getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
             val urlString = icon.rasterSizes[position].formats[0].previewUrl
             lateinit var request: DownloadManager.Request
             try {

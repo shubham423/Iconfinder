@@ -20,7 +20,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRepository(api: IconFinderApi): IconFinderRepository{
+    fun provideRepository(api: IconFinderApi): IconFinderRepository {
         return IconFinderRepositoryImpl(api)
     }
 }

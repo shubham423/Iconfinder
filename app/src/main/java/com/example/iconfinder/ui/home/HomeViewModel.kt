@@ -33,7 +33,6 @@ class HomeViewModel @Inject constructor(
             }catch (e:Exception){
                 Timber.d("exception occurred ${e.message}")
             }
-
         }
     }
 }
