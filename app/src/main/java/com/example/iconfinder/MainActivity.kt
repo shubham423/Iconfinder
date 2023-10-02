@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.iconfinder.databinding.ActivityMainBinding
+import com.example.iconfinder.ui.home.HomeFragment
 import com.example.iconfinder.ui.iconsets.IconSetsFragment.Companion.ICON_ID
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.referral.Branch
@@ -55,15 +56,15 @@ class MainActivity : AppCompatActivity() {
                         .i("control params %s", linkProperties.controlParams)
 
                     try {
-//                        if (linkProperties.controlParams?.get("\$iconsetid") != null) {
-//                            val bundle = Bundle()
-//                            bundle.putString(
-//                                HomeFragment.ICON_SET_IDENTIFIER,
-//                                linkProperties.controlParams?.get("\$iconsetid")
-//                            )
-//                            BranchEvent("NAVIGATE_TO_ICON_SETS_SCREEN").logEvent(this)
-//                            navController.navigate(R.id.iconSetsListFragment, bundle)
-//                        }
+                        if (linkProperties.controlParams?.get("\$iconset_category") != null) {
+                            val bundle = Bundle()
+                            bundle.putString(
+                                HomeFragment.ICON_SET_IDENTIFIER,
+                                linkProperties.controlParams?.get("\$iconsetid")
+                            )
+                            BranchEvent("NAVIGATE_TO_ICON_SETS_SCREEN").logEvent(this)
+                            navController.navigate(R.id.iconSetsListFragment, bundle)
+                        }
                         if (linkProperties.controlParams?.get("\$iconid") != null){
                             val bundle = Bundle()
                             bundle.putString(
