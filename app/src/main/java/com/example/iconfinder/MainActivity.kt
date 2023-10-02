@@ -60,16 +60,16 @@ class MainActivity : AppCompatActivity() {
                             val bundle = Bundle()
                             bundle.putString(
                                 HomeFragment.ICON_SET_IDENTIFIER,
-                                linkProperties.controlParams?.get("\$iconsetid")
+                                linkProperties.controlParams?.get("\$iconset_category")
                             )
                             BranchEvent("NAVIGATE_TO_ICON_SETS_SCREEN").logEvent(this)
                             navController.navigate(R.id.iconSetsListFragment, bundle)
                         }
-                        if (linkProperties.controlParams?.get("\$iconid") != null){
+                        if (linkProperties.controlParams?.get("\$iconset_id") != null){
                             val bundle = Bundle()
                             bundle.putString(
                                ICON_ID,
-                                linkProperties.controlParams?.get("\$iconid")
+                                linkProperties.controlParams?.get("\$iconset_id")
                             )
                             BranchEvent("NAVIGATE_TO_ICONS_SCREEN").logEvent(this)
                             navController.navigate(R.id.iconsFragment, bundle)

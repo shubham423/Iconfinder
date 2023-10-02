@@ -150,7 +150,15 @@ class IconsFragment : Fragment(),IconsCallBack{
         viewModel.selectedIcon = icon
         askPermission()
         showDownloadSheet()
+        logCustomEvent()
+    }
 
+    private fun logCustomEvent(){
+        BranchEvent("Icon finder custom event")
+            .addCustomDataProperty("price", "22")
+            .addCustomDataProperty("discount", "2")
+            .setCustomerEventAlias("my_custom_alias")
+            .logEvent(requireContext())
     }
 
     private fun logCommerceEvent() {

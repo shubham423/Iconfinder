@@ -53,6 +53,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="8dp"
             android:src="@drawable/ic_share"
+            android:padding="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/pricing_img"
             app:layout_constraintBottom_toBottomOf="@id/pricing_img"

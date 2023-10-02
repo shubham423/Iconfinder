@@ -92,7 +92,7 @@ class IconSetsFragment : Fragment(),IconSetsAdapterCallbacks {
             .setContentImageUrl("https://www.iconfinder.com/static/img/favicons/favicon-194x194.png?bf2736d2f8")
         val linkProperties = LinkProperties()
             .setFeature("share")
-            .addControlParameter("\$iconid",iconSet.iconsetId.toString())
+            .addControlParameter("\$iconset_id",iconSet.iconsetId.toString())
 
         iconUniversalObject.generateShortUrl(requireContext(), linkProperties) { url, error ->
             if (error == null) {
