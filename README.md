@@ -6,6 +6,11 @@ https://hlioc.test-app.link/icon_sets
 
 ### In icon sets fragment on click of share icon a sharable link will generate which we can share on diffrent apps which can hande links eg whatsapp twitter and when user will click on that generated link we will parse id from deeplink and call api with that id and also navigate user directly to icons screen
 
+### Branch loging events using rest api also show in app for eg when we click share icon it will log event by calling branch events api instead of branch android sdk
+
+### Event logging using android sdk also shown in app 
+
+
 
 
 
