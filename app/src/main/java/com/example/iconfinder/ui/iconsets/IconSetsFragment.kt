@@ -17,15 +17,19 @@ import com.example.iconfinder.ui.home.HomeFragment.Companion.ICON_SET_IDENTIFIER
 import com.example.iconfinder.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
+import io.branch.referral.SharingHelper
 import io.branch.referral.util.LinkProperties
+import io.branch.referral.util.ShareSheetStyle
 import timber.log.Timber
 
 
 @AndroidEntryPoint
-class IconSetsFragment : Fragment(),IconSetsAdapterCallbacks {
+class IconSetsFragment : Fragment(), IconSetsAdapterCallbacks {
     private var _binding: FragmentIconSetsBinding? = null
     private val binding get() = _binding!!
-    private val vieModel:IconSetsViewModel by viewModels()
+    private val vieModel: IconSetsViewModel by viewModels()
     private lateinit var iconSetsAdapter: IconSetsAdapter
     private val branchViewModel: BranchEventsViewModel by viewModels()
 
@@ -33,35 +37,38 @@ class IconSetsFragment : Fragment(),IconSetsAdapterCallbacks {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding= FragmentIconSetsBinding.inflate(layoutInflater)
+        _binding = FragmentIconSetsBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val identifier=arguments?.getString(ICON_SET_IDENTIFIER)
+        val identifier = arguments?.getString(ICON_SET_IDENTIFIER)
         identifier.let { vieModel.getIconCategorySets(identifier!!) }
         initObservers()
     }
 
     private fun initObservers() {
-        vieModel.iconSetsResponse.observe(viewLifecycleOwner){
-            when(it){
+        vieModel.iconSetsResponse.observe(viewLifecycleOwner) {
+            when (it) {
                 is Resource.Success -> {
-                    binding.progressBar.visibility=View.GONE
-                    iconSetsAdapter= IconSetsAdapter(this)
-                    binding.rvIconSets.adapter=iconSetsAdapter
+                    binding.progressBar.visibility = View.GONE
+                    iconSetsAdapter = IconSetsAdapter(this)
+                    binding.rvIconSets.adapter = iconSetsAdapter
                     iconSetsAdapter.submitList(it.data?.iconsets)
                 }
+
                 is Resource.Error -> {
-                    binding.progressBar.visibility=View.GONE
+                    binding.progressBar.visibility = View.GONE
                 }
+
                 is Resource.Loading -> {
-                    binding.progressBar.visibility=View.VISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
             }
         }
     }
+
     private fun shareIconWithLink(linkUrl: String) {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
@@ -71,28 +78,37 @@ class IconSetsFragment : Fragment(),IconSetsAdapterCallbacks {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding=null
+        _binding = null
     }
-    companion object{
-        const val ICON_ID="icon_id"
+
+    companion object {
+        const val ICON_ID = "icon_id"
     }
 
     override fun onIconSetClicked(iconSetId: Int) {
-        val bundle=Bundle()
-        bundle.putString(ICON_ID,iconSetId.toString())
-        findNavController().navigate(R.id.action_iconSetsListFragment_to_iconsFragment,bundle)
+        val bundle = Bundle()
+        bundle.putString(ICON_ID, iconSetId.toString())
+        findNavController().navigate(R.id.action_iconSetsListFragment_to_iconsFragment, bundle)
     }
 
     override fun onShareClicked(iconSet: Iconset) {
-        branchViewModel.logCustomEvent(BranchEventRequest(name = "ICON_SET_SHARE_EVENT_USING_REST_API", userData = BranchEventRequest.UserData()))
+        branchViewModel.logCustomEvent(
+            BranchEventRequest(
+                name = "ICON_SET_SHARE_EVENT_USING_REST_API",
+                userData = BranchEventRequest.UserData()
+            )
+        )
+        shareLinkUsingIntent(iconSet)
+    }
 
+    private fun shareLinkUsingIntent(iconSet: Iconset) {
         val iconUniversalObject = BranchUniversalObject()
             .setTitle("Icon")
             .setContentDescription("Check out this icon from my app!")
             .setContentImageUrl("https://www.iconfinder.com/static/img/favicons/favicon-194x194.png?bf2736d2f8")
         val linkProperties = LinkProperties()
             .setFeature("share")
-            .addControlParameter("\$iconset_id",iconSet.iconsetId.toString())
+            .addControlParameter("\$iconset_id", iconSet.iconsetId.toString())
 
         iconUniversalObject.generateShortUrl(requireContext(), linkProperties) { url, error ->
             if (error == null) {
@@ -101,9 +117,38 @@ class IconSetsFragment : Fragment(),IconSetsAdapterCallbacks {
                 shareIconWithLink(url)
             } else {
                 // Handle the error
-                Timber.tag("BranchSDK_Tester").e( error.message ?: "Error generating link")
+                Timber.tag("BranchSDK_Tester").e(error.message ?: "Error generating link")
             }
         }
+    }
 
+    private fun shareBranchLinkUsingSdkFunctions(iconSet: Iconset) {
+        val lp = LinkProperties()
+            .setFeature("sharing")
+            .addControlParameter("\$iconset_id", iconSet.iconsetId.toString())
+
+
+        val buo = BranchUniversalObject()
+            .setTitle("Iconset Link")
+            .setContentDescription("Link created using the Branch SDK")
+            .setContentImageUrl("https://www.iconfinder.com/static/img/favicons/favicon-194x194.png?bf2736d2f8")
+
+
+        val ss = ShareSheetStyle(requireActivity(), "Check this cool iconset!", "This stuff is awesome: ")
+            .setCopyUrlStyle(resources.getDrawable(androidx.appcompat.R.drawable.abc_ic_menu_copy_mtrl_am_alpha), "Copy", "Added to clipboard")
+            .setMoreOptionStyle(resources.getDrawable(androidx.appcompat.R.drawable.abc_ic_search_api_material), "Show more")
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
+            .setAsFullWidthStyle(true)
+            .setSharingTitle("Share With")
+
+        buo.showShareSheet(requireActivity(), lp, ss, object : Branch.BranchLinkShareListener {
+            override fun onShareLinkDialogLaunched() {}
+            override fun onShareLinkDialogDismissed() {}
+            override fun onLinkShareResponse(sharedLink: String?, sharedChannel: String?, error: BranchError?) {}
+            override fun onChannelSelected(channelName: String) {}
+        })
     }
 }
