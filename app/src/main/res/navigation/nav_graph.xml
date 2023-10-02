@@ -19,24 +19,18 @@
     </fragment>
     <fragment
         android:id="@+id/iconSetsListFragment"
-        android:name="com.example.iconfinder.ui.iconsetslist.IconSetsListFragment"
+        android:name="com.example.iconfinder.ui.iconsets.IconSetsFragment"
         android:label="Icon sets"
-        tools:layout="@layout/fragment_icon_sets_list">
+        tools:layout="@layout/fragment_icon_sets">
         <action
             android:id="@+id/action_iconSetsListFragment_to_iconsFragment"
             app:destination="@id/iconsFragment" />
-        <argument
-            android:name="identifier"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/iconsFragment"
         android:name="com.example.iconfinder.ui.icons.IconsFragment"
         android:label="Icons"
         tools:layout="@layout/fragment_icons">
-        <argument
-            android:name="iconSetId"
-            app:argType="integer" />
         <action
             android:id="@+id/action_iconsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />

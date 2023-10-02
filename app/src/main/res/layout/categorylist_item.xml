@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:text="Arrow"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginTop="16dp"
-        />
+    android:background="@drawable/rect_bg_border"
+    tools:text="Arrow"
+    android:textStyle="bold"
+    android:textSize="20sp"
+    android:gravity="center"
+    android:layout_margin="8dp"
+    android:padding="32dp" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:layout_marginTop="4dp"
-        android:background="?android:attr/listDivider" />
-</LinearLayout>

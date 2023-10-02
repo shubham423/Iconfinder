@@ -1,4 +1,4 @@
-package com.example.iconfinder.ui.iconsetslist
+package com.example.iconfinder.ui.iconsets
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

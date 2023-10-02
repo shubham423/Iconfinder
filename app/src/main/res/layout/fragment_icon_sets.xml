@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.iconsetslist.IconSetsListFragment">
+    tools:context=".ui.iconsets.IconSetsFragment">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:paddingBottom="16dp"/>
 
 </FrameLayout>

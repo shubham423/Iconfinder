@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.example.iconfinder'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.iconfinder"
         minSdk 21
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,6 +21,9 @@ android {
         properties.load(project.rootProject.file("local.properties").newDataInputStream())
 
         buildConfigField "String","API_KEY","\"${properties.getProperty("API_KEY")}\""
+        buildConfigField "String","BRANCH_KEY","\"${properties.getProperty("BRANCH_KEY")}\""
+        buildConfigField "String","AAID","\"${properties.getProperty("AAID")}\""
+
     }
 
     buildTypes {
@@ -86,6 +89,9 @@ dependencies {
 
     //leak canary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+
+    implementation 'io.branch.sdk.android:library:5.7.0'
+    implementation 'androidx.browser:browser:1.5.0'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

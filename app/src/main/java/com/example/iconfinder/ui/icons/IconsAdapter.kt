@@ -11,7 +11,7 @@ import com.example.iconfinder.R
 import com.example.iconfinder.databinding.ItemIconBinding
 import com.example.iconfinder.models.Icon
 
-class IconsAdapter(private val downloadCallback:(icon:Icon)->Unit) : ListAdapter<Icon, IconsAdapter.HomeViewHolder> (
+class IconsAdapter(private val iconsCallback:IconsCallBack) : ListAdapter<Icon, IconsAdapter.HomeViewHolder> (
     object : DiffUtil.ItemCallback<Icon>() {
         override fun areItemsTheSame(oldItem: Icon, newItem: Icon): Boolean {
             return oldItem == newItem
@@ -37,7 +37,7 @@ class IconsAdapter(private val downloadCallback:(icon:Icon)->Unit) : ListAdapter
              .into(binding.iconImg)
 
             binding.downloadIcon.setOnClickListener {
-                downloadCallback.invoke(icon)
+               iconsCallback.downloadIcon(icon)
             }
         }
 
@@ -52,4 +52,7 @@ class IconsAdapter(private val downloadCallback:(icon:Icon)->Unit) : ListAdapter
         holder.bind(getItem(position),position)
     }
 
+}
+interface IconsCallBack{
+    fun downloadIcon(icon: Icon)
 }

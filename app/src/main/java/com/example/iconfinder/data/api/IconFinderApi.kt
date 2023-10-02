@@ -18,7 +18,7 @@ interface IconFinderApi {
     @GET("icons/search")
     suspend fun searchPhotos(
         @Query("query") query: String,
-        @Query("count") count: Int=25,
+        @Query("count") count: Int=15,
     ): Response<IconsResponse>
 
     @GET("categories/{category_identifier}/iconsets")
@@ -30,6 +30,6 @@ interface IconFinderApi {
     @GET("iconsets/{iconset_id}/icons")
     suspend fun getIconFromIconSet(
         @Path("iconset_id") id: Int,
-        @Query("count") count: Int=25,
+        @Query("count") count: Int=15,
     ): Response<IconsResponse>
 }

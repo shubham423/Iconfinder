@@ -10,7 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E3D8D8"
+        >
 
         <ImageView
             android:id="@+id/icon_img"
@@ -28,14 +30,16 @@
 
         <TextView
             android:id="@+id/name_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon_img"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +49,9 @@
             android:layout_height="25dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:src="@drawable/free_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/icon_img"
             app:layout_constraintTop_toBottomOf="@+id/name_tv" />
 
